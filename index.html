@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>أمان | لعبة توعوية للحماية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Markazi+Text:wght@400;500;600;700&family=Bitter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <div id="particles"></div>
+  <canvas id="confettiCanvas"></canvas>
+  <button id="soundBtn" aria-label="تشغيل / إيقاف الموسيقى">🔈</button>
+
+  <!-- WELCOME -->
+  <div class="screen active" id="welcome">
+    <div class="skyline"></div>
+    <div class="shield-wrap stagger">
+      <div class="shield-glow"></div>
+      <div class="shield-glow-2"></div>
+      <div class="shield"><img src="img/logo.png" alt="أمان" ></div>
+    </div>
+    <h1 class="brand stagger">أمان</h1>
+    <p class="tagline stagger">لعبة توعوية لحماية المرأة و الطفل</p>
+    <button class="btn btn-primary stagger" id="startBtn">إبدأ اللعب</button>
+    <button class="btn btn-secondary stagger" id="howtoBtn">كيف تلعب؟</button>
+    <div class="footnote">صمم بحب من أجل سلامتك 💜</div>
+  </div>
+
+  <!-- HOW TO PLAY -->
+  <div class="screen" id="howto">
+    <h2 class="section-title stagger">كيف تلعب؟</h2>
+    <div class="howto-girl stagger"><img src="img/girl.png" width="220" alt="فتاة"></div>
+    <div class="rule-card stagger">
+      <div class="rule-item"><span class="rule-num">١</span><span>ستواجه <b>مواقف من الحياة اليومية</b> قد تمر بها فعلاً.</span></div>
+      <div class="rule-item"><span class="rule-num">٢</span><span>اقرأ كل <b>موقف جيداً</b> قبل أن تقرر.</span></div>
+      <div class="rule-item"><span class="rule-num">٣</span><span>اختر <b>التصرف الصحيح</b> من بين الخيارات الثلاثة.</span></div>
+      <div class="rule-item"><span class="rule-num">٤</span><span>بعد كل إجابة، <b>ستتعلم السبب</b> وراءها.</span></div>
+      <div class="rule-item"><span class="rule-num">٥</span><span>تذكر: <b>الهدف هو التعلّم</b>، وليس الفوز فقط.</span></div>
+    </div>
+    <button class="btn btn-primary stagger" id="backToWelcome">إبدأ الآن ←</button>
+  </div>
+
+  <!-- SCENARIO -->
+  <div class="screen" id="scenario">
+    <div class="progress-wrap stagger" id="progressWrap">
+      <div class="progress-info">
+        <span class="progress-label" id="progressLabel">الموقف ١ من ٦</span>
+        <span class="progress-count" id="progressCount">١/٦</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%;right:0%"></div>
+      </div>
+      <div class="progress-dots" id="progressDots"></div>
+    </div>
+    <div class="scene-art stagger">
+      <span class="scene-tag" id="sceneTag">الموقف</span>
+      <div class="scene-emojis" id="sceneEmojis"></div>
+    </div>
+    <div class="scenario-body">
+      <div class="scenario-text stagger" id="scenarioText"></div>
+      <div class="choices" id="choicesWrap"></div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="result">
+    <div class="result-bg" id="resultBg"></div>
+    <div class="result-content" id="resultContent">
+      <div class="result-banner">
+        <div class="result-icon-wrap" id="resultIconWrap">
+          <span class="r-icon" id="resultIcon">✅</span>
+        </div>
+        <span class="result-label" id="resultLabel">خيار آمن</span>
+      </div>
+      <div class="result-body">
+        <img id="resultImage" class="result-image" style="display:none;" alt="نتيجة">
+        <div class="result-card" id="resultCard">
+          <span id="resultText"></span>
+          <span class="why" id="resultWhy"></span>
+        </div>
+        <button class="btn btn-safe" id="nextBtn">التالي ←</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL / SCORE PAGE -->
+  <div class="screen" id="final">
+    <div class="final-hero stagger">
+      <div class="badge-wrap">
+        <div class="badge-glow"></div>
+        <div class="badge-glow-2"></div>
+        <div class="badge-ring"></div>
+        <div class="badge" id="finalBadge">🏅</div>
+      </div>
+      <h2 class="final-title" id="finalTitle">حارس أمان محترف!</h2>
+    </div>
+
+    <div class="final-score-block stagger">
+      <div class="score-big" id="scoreBig">٦</div>
+      <div class="score-of" id="scoreOf">من ٦ خيارات آمنة</div>
+      <div class="stars-row" id="starsRow"></div>
+    </div>
+
+    <div class="breakdown stagger" id="breakdownWrap">
+      <div class="breakdown-card">
+        <div class="breakdown-icon safe-icon">✅</div>
+        <div class="breakdown-info">
+          <div class="breakdown-label">خيارات آمنة</div>
+          <div class="breakdown-bar-track"><div class="breakdown-bar-fill safe-fill" id="barSafe"></div></div>
+        </div>
+        <div class="breakdown-num safe-num" id="numSafe">٠</div>
+      </div>
+      <div class="breakdown-card">
+        <div class="breakdown-icon caution-icon">⚠️</div>
+        <div class="breakdown-info">
+          <div class="breakdown-label">تحتاج حذر</div>
+          <div class="breakdown-bar-track"><div class="breakdown-bar-fill caution-fill" id="barCaution"></div></div>
+        </div>
+        <div class="breakdown-num caution-num" id="numCaution">٠</div>
+      </div>
+      <div class="breakdown-card">
+        <div class="breakdown-icon unsafe-icon">⛔</div>
+        <div class="breakdown-info">
+          <div class="breakdown-label">غير آمنة</div>
+          <div class="breakdown-bar-track"><div class="breakdown-bar-fill unsafe-fill" id="barUnsafe"></div></div>
+        </div>
+        <div class="breakdown-num unsafe-num" id="numUnsafe">٠</div>
+      </div>
+    </div>
+
+    <div class="final-msg-wrap stagger">
+      <div class="final-msg-card">
+        <span class="msg-icon" id="msgIcon">💪</span>
+        <p id="finalMsg"></p>
+      </div>
+    </div>
+
+    <div class="final-actions stagger">
+      <button class="btn btn-primary" id="restartBtn">إلعب مرة أخرى</button>
+      <button class="btn btn-secondary" id="homeBtn">الصفحة الرئيسية</button>
+    </div>
+  </div>
+</div>
+<script src="java.js"></script>
+</body>
+</html>
